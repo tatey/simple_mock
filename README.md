@@ -21,4 +21,4 @@ mock.verify # => true
 
 ## Copyright
 
-Copyright © 2012 Tate Johnson. Conformist is released under the MIT license. See LICENSE for details.
+Copyright © 2012 Tate Johnson. SimpleMock is released under the MIT license. See LICENSE for details.
