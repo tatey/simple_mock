@@ -42,6 +42,18 @@ class MockDelegatorTest < MiniTest::Unit::TestCase
     assert_raises(MockExpectationError) { delegator.verify }
   end
 
+  def test_raises_when_methods_are_called_with_wrong_number_of_arguments
+    delegator = MockDelegator.new Object.new
+    delegator.expect :test, true, [Object, Object]
+    assert_raises(MockExpectationError) { delegator.test Object.new }
+  end
+
+  def test_raises_when_methods_are_called_with_wrong_argument_types
+    delegator = MockDelegator.new Object.new
+    delegator.expect :test, true, [Fixnum]
+    assert_raises(MockExpectationError) { delegator.test String.new }
+  end
+
   def test_missing_method_is_forwarded_to_delegate
     array = Array.new
     delegator = MockDelegator.new array
