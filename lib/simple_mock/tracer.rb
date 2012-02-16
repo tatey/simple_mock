@@ -7,7 +7,7 @@ module SimpleMock
       self.expected_calls = {}
     end
 
-    def assert name, actual_args
+    def assert name, actual_args = []
       expected_args = expected_calls[name]
       unless expected_args.size == actual_args.size
         raise MockExpectationError
@@ -18,7 +18,7 @@ module SimpleMock
       actual_calls[name] = true
     end
 
-    def register name, args
+    def register name, args = []
       expected_calls[name] = args
     end
 
