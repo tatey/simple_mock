@@ -1,23 +1,49 @@
 # SimpleMock
 
-A light weight mocking library with delegation. Inspired by this [blog post](http://tatey.com/2012/02/07/mocking-with-minitest-mock-and-simple-delegator/). I'm expecting the API to look something like this.
+A fast, tiny mocking library that mixes expectations with real objects. There's no monkey patching or copying. Real objects are completely untainted. The interface is 100% compatible with MiniTest::Mock so there is nothing new to learn. SimpleMock's one and only dependancy is Ruby.
+
+## Installation
+
+TODO
+
+## Usage
+
+A new SimpleMock object behaves identically to MiniTest::Mock.
 
 ``` ruby
-# Without an argument, SimpleMock behaves identically to MiniTest::Mock.new
-mock = SimpleMock.new
-mock.expect :valid?, false
-mock.valid? # => false
-mock.save   # => NoMethodError
-mock.verify # => true
+mock_model = SimpleMock.new
+mock_model.expect :valid?, true
 
-# With an argument, SimpleMock instantiates an anonymous class that inherits from SimpleDelegate.
-# Except for expectations, all methods are forwarded to the delegate.
-mock = SimpleMock.new Post.new
-mock.expect :valid?, false
-mock.valid? # => false
-mock.save   # => false
-mock.verify # => true
+mock_model.valid? # => true
+
+mock_model.verify # => true
 ```
+
+...or pass an object to mix expectations with the real object's original behaviour.
+
+``` ruby
+real_model = Post.new
+mock_model = SimpleMock.new real_model
+mock_model.expect :valid?, false
+
+mock_model.valid? # => true
+mock_model.create # => true
+
+mock_model.verify # => true
+```
+
+This is done with delegation, avoiding monkey patching and copying. The real object is completely untainted.
+
+``` ruby
+mock_model.valid  # => true
+real_model.valid? # => false
+
+real_model.object_id == mock_model.object_id # => true
+```
+
+## Examples
+
+TODO
 
 ## Copyright
 
