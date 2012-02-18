@@ -11,13 +11,13 @@ module SimpleMock
     end
 
     def expect name, retval, args = []
-      method = Module.new do
+      method_definition = Module.new do
         define_method name do |*args, &block|
           __tracer.assert name, args
           retval
         end
       end
-      extend method
+      extend method_definition
       __tracer.register name, args
       self
     end
