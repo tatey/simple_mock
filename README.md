@@ -44,7 +44,7 @@ This is done with delegation, avoiding monkey patching and copying. The real obj
 mock_model.valid  # => true
 real_model.valid? # => false
 
-real_model.object_id == mock_model.object_id # => true
+real_model.object_id == mock_model.__getobj__.object_id # => true
 ```
 
 ## Examples
