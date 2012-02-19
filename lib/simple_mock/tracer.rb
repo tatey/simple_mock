@@ -10,7 +10,7 @@ module SimpleMock
     def assert name, actual_args = []
       expected_args = expected_calls[name]
       unless expected_args.size == actual_args.size
-        raise MockExpectationError
+        raise MockExpectationError, "mocked method :#{name} expects #{expected_args.size} arguments, got #{actual_args.size}"
       end
       unless expected_args.zip(actual_args).all? { |e, a| e === a || e == a }
         raise MockExpectationError

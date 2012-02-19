@@ -18,7 +18,8 @@ class TracerTest < MiniTest::Unit::TestCase
 
   def test_assert_raises_when_methods_are_called_with_wrong_number_of_arguments
     @tracer.register :plus_one, [Fixnum, Fixnum]
-    assert_raises(MockExpectationError) { @tracer.assert :plus_one, [1] }
+    e = assert_raises(MockExpectationError) { @tracer.assert :plus_one, [1] }
+    assert_equal 'mocked method :plus_one expects 2 arguments, got 1', e.message
   end
 
   def test_assert_raises_when_methods_are_called_with_wrong_arguments
