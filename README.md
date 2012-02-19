@@ -36,7 +36,7 @@ Pass an object to mix expectations with the real object's original behaviour.
 ``` ruby
 real_model = Post.new
 mock_model = SimpleMock.new real_model
-mock_model.expect :valid?, false
+mock_model.expect :valid?, true
 
 mock_model.valid? # => true
 mock_model.create # => true
