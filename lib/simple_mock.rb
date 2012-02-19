@@ -1,4 +1,5 @@
 require 'delegate'
+require 'forwardable'
 require 'minitest/mock'
 
 require 'simple_mock/mock_delegator'
