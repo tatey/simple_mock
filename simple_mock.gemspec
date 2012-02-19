@@ -7,9 +7,9 @@ Gem::Specification.new do |s|
   s.version     = SimpleMock::VERSION
   s.authors     = ["Tate Johnson"]
   s.email       = ["tate@tatey.com"]
-  s.homepage    = ""
-  s.summary     = %q{TODO: Write a gem summary}
-  s.description = %q{TODO: Write a gem description}
+  s.homepage    = 'https://github.com/tatey/simple_mock'
+  s.summary     = %q{A fast, tiny mocking library that mixes classical mocking with real objects.}
+  s.description = %q{A fast, tiny mocking library that mixes classical mocking with real objects.}
 
   s.rubyforge_project = "simple_mock"
 

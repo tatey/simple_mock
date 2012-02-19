@@ -1,6 +1,6 @@
 # SimpleMock
 
-A fast, tiny mocking library that mixes expectations with real objects. There's no monkey patching or copying. Real objects are completely untainted. The interface is 100% compatible with MiniTest::Mock so there is nothing new to learn. SimpleMock's one and only dependancy is Ruby.
+A fast, tiny mocking library that mixes classical mocking with real objects. There's no monkey patching or deep copying. Real objects are completely untainted. The interface is 100% compatible with MiniTest::Mock so there is nothing new to learn. SimpleMock's one and only dependancy is Ruby 1.9.2 or greater.
 
 ## Installation
 
@@ -42,6 +42,10 @@ real_model.object_id == mock_model.object_id # => true
 ```
 
 ## Examples
+
+TODO
+
+## Caveats
 
 TODO
 
