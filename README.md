@@ -69,7 +69,7 @@ mock_instance = mock_class.new MyRealClass.new
 mock_instance.verify # => true
 ```
 
-SimpleDelegator does something similar to this under the hood.
+SimpleMock does something similar to this under the hood.
 
 ## Copyright
 
