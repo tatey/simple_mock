@@ -53,9 +53,7 @@ real_model.valid? # => false
 real_model.object_id == mock_model.__getobj__.object_id # => true
 ```
 
-## Examples
-
-TODO
+More documentation is available at [rubydoc.info](http://rubydoc.info/gems/simple_mock/frames).
 
 ## Caveats
 
