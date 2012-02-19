@@ -1,10 +1,16 @@
 # SimpleMock
 
-A fast, tiny mocking library that mixes classical mocking with real objects. There's no monkey patching or deep copying. Real objects are completely untainted. The interface is 100% compatible with MiniTest::Mock so there is nothing new to learn. SimpleMock's one and only dependancy is Ruby 1.9.2 or greater.
+A fast, tiny mocking (81 lines) library that mixes classical mocking with real objects. There's no monkey patching `Object` or  copying objects. Real objects are completely untainted. The interface is 100% compatible with [MiniTest::Mock](https://github.com/seattlerb/minitest) so there is nothing new to learn. SimpleMock's one and only dependancy is Ruby 1.9.2 or greater.
 
 ## Installation
 
-TODO
+Add this to your project's Gemfile and run `$ bundle`.
+
+``` ruby
+gem 'simple_mock', :group => :test
+```
+
+SimpleMock is isolated so there is no need to set require to false.
 
 ## Usage
 
@@ -47,7 +53,19 @@ TODO
 
 ## Caveats
 
-TODO
+Like MiniTest::Mock, `#expect` and `#verify` are reserved methods. Expectations cannot be defined on real objects which implement these methods. As an alternative, consider creating an anonymous class which inherits from SimpleDelegator.
+
+``` ruby
+mock_class = Class.new SimpleDelegator do
+  def verify *args
+    true
+  end
+end
+mock_instance = mock_class.new MyRealClass.new
+mock_instance.verify # => true
+```
+
+SimpleDelegator does something similar to this under the hood.
 
 ## Copyright
 
