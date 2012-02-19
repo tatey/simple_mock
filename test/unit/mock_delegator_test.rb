@@ -29,7 +29,7 @@ class MockDelegatorTest < MiniTest::Unit::TestCase
 
   def test_expect_calls_register_on_tracer
     tracer = MiniTest::Mock.new
-    tracer.expect :register, true, [Symbol, Array]
+    tracer.expect :register, true, [:plus_one, []]
     delegator = MockDelegator.new Object.new
     delegator.__tracer = tracer
     delegator.expect :plus_one, 2
@@ -52,7 +52,7 @@ class MockDelegatorTest < MiniTest::Unit::TestCase
 
   def test_method_calls_assert_on_tracer
     tracer = MockDelegator.new Tracer.new
-    tracer.expect :assert, true, [Symbol, Array]
+    tracer.expect :assert, true, [:plus_one, []]
     delegator = MockDelegator.new Object.new
     delegator.__tracer = tracer
     delegator.expect :plus_one, 2

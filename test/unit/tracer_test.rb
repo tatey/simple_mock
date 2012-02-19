@@ -21,7 +21,7 @@ class TracerTest < MiniTest::Unit::TestCase
     assert_raises(MockExpectationError) { @tracer.assert :plus_one, [1] }
   end
 
-  def test_assert_raises_when_methods_are_called_with_type_of_arguments
+  def test_assert_raises_when_methods_are_called_with_wrong_arguments
     @tracer.register :plus_one, [Fixnum]
     assert_raises(MockExpectationError) { @tracer.assert :plus_one, [String.new] }
   end
