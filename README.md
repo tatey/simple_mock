@@ -2,7 +2,7 @@
 
 [![Build Status](https://secure.travis-ci.org/tatey/simple_mock.png?branch=master)](http://travis-ci.org/tatey/simple_mock)
 
-A fast, tiny mocking (81 lines) library that mixes classical mocking with real objects. There's no monkey patching `Object` or  copying objects. Real objects are completely untainted. The interface is 100% compatible with [MiniTest::Mock](https://github.com/seattlerb/minitest) so there is nothing new to learn. SimpleMock's one and only dependancy is Ruby 1.9.2 or greater.
+A fast, tiny (81 lines) hybrid mocking library. Mix classical mocking with real objects. There's no monkey patching `Object` or copying objects. Real objects are completely untainted. The interface is 100% compatible with [MiniTest::Mock](https://github.com/seattlerb/minitest) so there is nothing new to learn. SimpleMock's one and only dependancy is Ruby 1.9.2 or greater.
 
 ## Installation
 
@@ -16,6 +16,8 @@ SimpleMock is isolated so there is no need to set require to false.
 
 ## Usage
 
+### Classical Mocking
+
 A new SimpleMock object behaves identically to MiniTest::Mock.
 
 ``` ruby
@@ -27,7 +29,9 @@ mock_model.valid? # => true
 mock_model.verify # => true
 ```
 
-...or pass an object to mix expectations with the real object's original behaviour.
+### Hybrid Mocking
+
+Pass an object to mix expectations with the real object's original behaviour.
 
 ``` ruby
 real_model = Post.new
@@ -55,7 +59,7 @@ TODO
 
 ## Caveats
 
-Like MiniTest::Mock, `#expect` and `#verify` are reserved methods. Expectations cannot be defined on real objects which implement these methods. As an alternative, consider creating an anonymous class which inherits from SimpleDelegator.
+Like MiniTest::Mock, `#expect` and `#verify` are reserved methods. Expectations should not be defined on real objects which implement these methods. As an alternative, consider creating an anonymous class which inherits from SimpleDelegator.
 
 ``` ruby
 mock_class = Class.new SimpleDelegator do

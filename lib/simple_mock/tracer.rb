@@ -22,6 +22,8 @@ module SimpleMock
       expected_calls[name] = args
     end
 
+    # Verify that all methods were called as expected. Raises
+    # +MockExpectationError+ if not called as expected.
     def verify
       if (expected_calls.keys - actual_calls.keys).any?
         raise MockExpectationError

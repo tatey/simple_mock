@@ -8,8 +8,8 @@ Gem::Specification.new do |s|
   s.authors     = ["Tate Johnson"]
   s.email       = ["tate@tatey.com"]
   s.homepage    = 'https://github.com/tatey/simple_mock'
-  s.summary     = %q{A fast, tiny mocking library that mixes classical mocking with real objects.}
-  s.description = %q{A fast, tiny mocking library that mixes classical mocking with real objects.}
+  s.summary     = %q{A fast, tiny hybrid mocking library.}
+  s.description = %q{A fast, tiny hybrid mocking library. Mix classical mocking with real objects. There's no monkey patching `Object` or copying objects. Real objects are completely untainted.}
 
   s.rubyforge_project = "simple_mock"
 
