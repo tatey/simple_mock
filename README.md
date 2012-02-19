@@ -1,5 +1,7 @@
 # SimpleMock
 
+[![Build Status](https://secure.travis-ci.org/tatey/simple_mock.png?branch=master)](http://travis-ci.org/tatey/simple_mock)
+
 A fast, tiny mocking (81 lines) library that mixes classical mocking with real objects. There's no monkey patching `Object` or  copying objects. Real objects are completely untainted. The interface is 100% compatible with [MiniTest::Mock](https://github.com/seattlerb/minitest) so there is nothing new to learn. SimpleMock's one and only dependancy is Ruby 1.9.2 or greater.
 
 ## Installation
