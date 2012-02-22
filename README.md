@@ -2,7 +2,7 @@
 
 [![Build Status](https://secure.travis-ci.org/tatey/simple_mock.png?branch=master)](http://travis-ci.org/tatey/simple_mock)
 
-A fast, tiny (81 lines) hybrid mocking library. Mix classical mocking with real objects. There's no monkey patching `Object` or copying. Real objects are completely untainted. The interface is 100% compatible with [MiniTest::Mock](https://github.com/seattlerb/minitest) so there is nothing new to learn. SimpleMock's one and only dependancy is Ruby 1.9.2 or greater.
+A fast, tiny (81 lines) hybrid mocking library. Supports classical and partial mocking. Partial mocking mixes classical mocking with real objects. There's no monkey patching `Object` or testing libraries. Mock objects are isolated leaving real objects are completely untainted. Plays nicely with MiniTest and [RSpec](http://rspec.info/). The interface is 100% compatible with [MiniTest::Mock](https://github.com/seattlerb/minitest) so there is nothing new to learn. SimpleMock's one and only dependancy is Ruby 1.9.2 or greater.
 
 ## Installation
 
@@ -29,7 +29,7 @@ mock_model.valid? # => true
 mock_model.verify # => true
 ```
 
-### Hybrid Mocking
+### Partial Mocking
 
 Pass an object to mix expectations with the real object's original behaviour.
 
@@ -55,9 +55,20 @@ mock_model.valid  # => true
 real_model.valid? # => false
 
 real_model.object_id == mock_model.__getobj__.object_id # => true
+real_model.object_id != mock_model.object_id            # => true
 ```
 
 More documentation is available at [rubydoc.info](http://rubydoc.info/gems/simple_mock/frames).
+
+## Performance
+
+SimpleMock is fast. In [this benchmark](https://gist.github.com/1871840) we create an array, set an expectation and call that method 10,000 times.
+
+``` plain
+             user       system     total      real
+mocha:       0.000000   0.000000   0.000000   (0.000279)
+simple_mock: 0.000000   0.000000   0.000000   (0.000057)
+```
 
 ## Caveats
 
