@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.email       = ["tate@tatey.com"]
   s.homepage    = 'https://github.com/tatey/simple_mock'
   s.summary     = %q{A fast, tiny hybrid mocking library.}
-  s.description = %q{A fast, tiny hybrid mocking library. Mix classical mocking with real objects. There's no monkey patching `Object` or copying objects. Real objects are completely untainted.}
+  s.description = %q{A fast, tiny (81 lines) hybrid mocking library that supports classical and partial mocking. Partial mocking mixes classical mocking with real objects. There's no monkey patching `Object` or copying. Mock objects are isolated leaving real objects completely untainted.}
 
   s.rubyforge_project = "simple_mock"
 
