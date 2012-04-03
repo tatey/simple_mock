@@ -1,0 +1,137 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Simple mock by tatey</title>
+    
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Simple mock</h1>
+        <p>A fast, tiny hybrid mocking library.</p>
+        <p class="view"><a href="https://github.com/tatey/simple_mock">View the Project on GitHub <small>tatey/simple_mock</small></a></p>
+        <ul>
+          <li><a href="https://github.com/tatey/simple_mock/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/tatey/simple_mock/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/tatey/simple_mock">Fork On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>SimpleMock</h1>
+
+<p><a href="http://travis-ci.org/tatey/simple_mock"><img src="https://secure.travis-ci.org/tatey/simple_mock.png?branch=master" alt="Build Status"></a></p>
+
+<p>A fast, tiny (81 lines) hybrid mocking library that supports classical and partial mocking. Partial mocking mixes classical mocking with real objects. There's no monkey patching <code>Object</code> or copying. Mock objects are isolated leaving real objects completely untainted. Plays nicely with MiniTest and <a href="http://rspec.info/">RSpec</a>. The interface is 100% compatible with <a href="https://github.com/seattlerb/minitest">MiniTest::Mock</a> so there is nothing new to learn. SimpleMock's one and only dependancy is Ruby 1.9.2 or greater.</p>
+
+<h2>Installation</h2>
+
+<p>Add this to your project's Gemfile and run <code>$ bundle</code>.</p>
+
+<div class="highlight">
+<pre><span class="n">gem</span> <span class="s1">'simple_mock'</span><span class="p">,</span> <span class="ss">:group</span> <span class="o">=&gt;</span> <span class="ss">:test</span>
+</pre>
+</div>
+
+
+<p>SimpleMock is isolated so there is no need to set require to false.</p>
+
+<h2>Usage</h2>
+
+<h3>Classical Mocking</h3>
+
+<p>A new SimpleMock object behaves identically to MiniTest::Mock.</p>
+
+<div class="highlight">
+<pre><span class="n">mock_model</span> <span class="o">=</span> <span class="no">SimpleMock</span><span class="o">.</span><span class="n">new</span>
+<span class="n">mock_model</span><span class="o">.</span><span class="n">expect</span> <span class="ss">:valid?</span><span class="p">,</span> <span class="kp">true</span>
+
+<span class="n">mock_model</span><span class="o">.</span><span class="n">valid?</span> <span class="c1"># =&gt; true</span>
+
+<span class="n">mock_model</span><span class="o">.</span><span class="n">verify</span> <span class="c1"># =&gt; true</span>
+</pre>
+</div>
+
+
+<h3>Partial Mocking</h3>
+
+<p>Pass an object to mix expectations with the real object's original behaviour.</p>
+
+<div class="highlight">
+<pre><span class="k">class</span> <span class="nc">Post</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+  <span class="n">validates</span> <span class="ss">:title</span><span class="p">,</span> <span class="ss">:presence</span> <span class="o">=&gt;</span> <span class="kp">true</span>
+<span class="k">end</span>
+
+<span class="n">real_model</span> <span class="o">=</span> <span class="no">Post</span><span class="o">.</span><span class="n">new</span>
+<span class="n">mock_model</span> <span class="o">=</span> <span class="no">SimpleMock</span><span class="o">.</span><span class="n">new</span> <span class="n">real_model</span>
+<span class="n">mock_model</span><span class="o">.</span><span class="n">expect</span> <span class="ss">:valid?</span><span class="p">,</span> <span class="kp">true</span>
+
+<span class="n">mock_model</span><span class="o">.</span><span class="n">valid?</span> <span class="c1"># =&gt; true</span>
+<span class="n">mock_model</span><span class="o">.</span><span class="n">create</span> <span class="c1"># =&gt; true</span>
+
+<span class="n">mock_model</span><span class="o">.</span><span class="n">verify</span> <span class="c1"># =&gt; true</span>
+</pre>
+</div>
+
+
+<p>This is done with delegation, avoiding monkey patching and copying. The real object is completely untainted.</p>
+
+<div class="highlight">
+<pre><span class="n">mock_model</span><span class="o">.</span><span class="n">valid</span>  <span class="c1"># =&gt; true</span>
+<span class="n">real_model</span><span class="o">.</span><span class="n">valid?</span> <span class="c1"># =&gt; false</span>
+
+<span class="n">real_model</span><span class="o">.</span><span class="n">object_id</span> <span class="o">==</span> <span class="n">mock_model</span><span class="o">.</span><span class="n">__getobj__</span><span class="o">.</span><span class="n">object_id</span> <span class="c1"># =&gt; true</span>
+<span class="n">real_model</span><span class="o">.</span><span class="n">object_id</span> <span class="o">!=</span> <span class="n">mock_model</span><span class="o">.</span><span class="n">object_id</span>            <span class="c1"># =&gt; true</span>
+</pre>
+</div>
+
+
+<p>More documentation is available at <a href="http://rubydoc.info/gems/simple_mock/frames">rubydoc.info</a>.</p>
+
+<h2>Performance</h2>
+
+<p>SimpleMock is fast. In <a href="https://gist.github.com/1871840">this benchmark</a> we create an array, set an expectation and call that method 10,000 times.</p>
+
+<pre lang="plain"><code>             user       system     total      real
+mocha:       0.000000   0.000000   0.000000   (0.000279)
+simple_mock: 0.000000   0.000000   0.000000   (0.000057)
+</code></pre>
+
+<h2>Caveats</h2>
+
+<p>Like MiniTest::Mock, <code>#expect</code> and <code>#verify</code> are reserved methods. Expectations should not be defined on real objects which implement these methods. As an alternative, consider creating an anonymous class which inherits from SimpleDelegator.</p>
+
+<div class="highlight">
+<pre><span class="n">mock_class</span> <span class="o">=</span> <span class="no">Class</span><span class="o">.</span><span class="n">new</span> <span class="no">SimpleDelegator</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="nf">verify</span> <span class="o">*</span><span class="n">args</span>
+    <span class="kp">true</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+<span class="n">mock_instance</span> <span class="o">=</span> <span class="n">mock_class</span><span class="o">.</span><span class="n">new</span> <span class="no">MyRealClass</span><span class="o">.</span><span class="n">new</span>
+<span class="n">mock_instance</span><span class="o">.</span><span class="n">verify</span> <span class="c1"># =&gt; true</span>
+</pre>
+</div>
+
+
+<p>SimpleMock does something similar to this under the hood.</p>
+
+<h2>Copyright</h2>
+
+<p>Copyright © 2012 Tate Johnson. SimpleMock is released under the MIT license. See LICENSE for details.</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/tatey">tatey</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
+  </body>
+</html>
