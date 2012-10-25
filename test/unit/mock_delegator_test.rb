@@ -59,4 +59,11 @@ class MockDelegatorTest < MiniTest::Unit::TestCase
     delegator.plus_one
     assert tracer.verify
   end
+
+  def test_class_is_mocked_class
+    klass     = Class.new
+    delegator = MockDelegator.new klass.new
+
+    assert_equal klass.new.class, delegator.class
+  end
 end

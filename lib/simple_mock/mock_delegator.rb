@@ -4,6 +4,7 @@ module SimpleMock
 
     attr_accessor :__tracer
     delegate :verify => :__tracer
+    delegate :class => :__getobj__
 
     def initialize object
       super
