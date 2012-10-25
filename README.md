@@ -2,7 +2,7 @@
 
 [![Build Status](https://secure.travis-ci.org/tatey/simple_mock.png?branch=master)](http://travis-ci.org/tatey/simple_mock)
 
-A fast, tiny (81 lines) hybrid mocking library that supports classical and partial mocking. Partial mocking mixes classical mocking with real objects. There's no monkey patching `Object` or copying. Mock objects are isolated leaving real objects completely untainted. Plays nicely with MiniTest and [RSpec](http://rspec.info/). The interface is 100% compatible with [MiniTest::Mock](https://github.com/seattlerb/minitest) so there is nothing new to learn. SimpleMock's one and only dependancy is Ruby 1.9.2 or greater.
+A fast, tiny (82 lines) hybrid mocking library that supports classical and partial mocking. Partial mocking mixes classical mocking with real objects. There's no monkey patching `Object` or copying. Mock objects are isolated leaving real objects completely untainted. Plays nicely with MiniTest and [RSpec](http://rspec.info/). The interface is 100% compatible with [MiniTest::Mock](https://github.com/seattlerb/minitest) so there is nothing new to learn. SimpleMock's one and only dependancy is Ruby 1.9.2 or greater.
 
 ## Installation
 
@@ -40,6 +40,8 @@ end
 
 real_model = Post.new
 mock_model = SimpleMock.new real_model
+mock_model.class # => Post
+
 mock_model.expect :valid?, true
 
 mock_model.valid? # => true
