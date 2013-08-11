@@ -60,6 +60,20 @@ class MockDelegatorTest < MiniTest::Unit::TestCase
     assert tracer.verify
   end
 
+  def test_method_calls_from_calls_assert_on_tracer
+    tracer = MockDelegator.new Tracer.new
+    tracer.expect :assert, true, [:plus_one, []]
+    object = Class.new do
+      define_method(:plus_one) { 0 }
+      define_method(:minus_one) { plus_one }
+    end.new
+    delegator = MockDelegator.new object
+    delegator.__tracer = tracer
+    delegator.expect :plus_one, 2
+    delegator.minus_one
+    assert tracer.verify
+  end
+
   def test_class_is_mocked_class
     klass     = Class.new
     delegator = MockDelegator.new klass.new
